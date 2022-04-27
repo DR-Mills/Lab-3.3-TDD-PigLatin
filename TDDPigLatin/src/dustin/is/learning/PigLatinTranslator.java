@@ -12,17 +12,13 @@ public class PigLatinTranslator {
 			word = convertToLowerCase(word);
 			if (containsNumber(word) || containsSymbol(word)) {
 				returnString += word + " ";
-			} else if (startsWithVowel(word) && !word.startsWith("y")) {
+			} else if (startsWithVowel(word)) {
 				returnString += addWayToEnd(word) + " ";
 			} else {
 				returnString += convertWordToOrdway(word) + " ";
 			}
 		}
-		if (words.size() == 1) {
-			return returnString.trim();
-		} else {
-			return returnString;
-		}
+		return returnString.substring(0, returnString.length()-1); //removes the last " " from the last word in the String
 	}
 
 	public static String convertToLowerCase(String str) {
@@ -49,7 +45,7 @@ public class PigLatinTranslator {
 
 	public static int indexOf1stVowel(String str) {
 		if (str.startsWith("y")) {
-			return 1;
+			return 1; // nearly all words starting with y are followed by a vowel @ index 1
 		}
 		Pattern vowel = Pattern.compile("[AaEeIiOoUuYy]");
 		Matcher hasVowel = vowel.matcher(str);

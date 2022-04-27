@@ -108,6 +108,12 @@ class translateTest {
 		assertEquals("joe@email.com", actual);
 	}
 	
+	@Test
+	void multipleWords() {
+		ArrayList<String> test = new ArrayList<>(Arrays.asList("yogurt", "is", "healthy"));
+		String actual = PigLatinTranslator.translate(test);
+		assertEquals("ogurtyay isway ealthyhay", actual);
+	}
 	
 }
 
