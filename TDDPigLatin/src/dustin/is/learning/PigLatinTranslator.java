@@ -1,18 +1,27 @@
 package dustin.is.learning;
 
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class PigLatinTranslator {
 
-	public static String translate(String word) {
-		word = convertToLowerCase(word);
-		if (containsNumber(word) || containsSymbol(word)) {
-			return word;
-		} else if (startsWithVowel(word)) {
-			return addWayToEnd(word);
+	public static String translate(ArrayList<String> words) {
+		String returnString = "";
+		for (String word : words) {
+			word = convertToLowerCase(word);
+			if (containsNumber(word) || containsSymbol(word)) {
+				returnString += word + " ";
+			} else if (startsWithVowel(word) && !word.startsWith("y")) {
+				returnString += addWayToEnd(word) + " ";
+			} else {
+				returnString += convertWordToOrdway(word) + " ";
+			}
+		}
+		if (words.size() == 1) {
+			return returnString.trim();
 		} else {
-			return convertWordToOrdway(word);
+			return returnString;
 		}
 	}
 
@@ -21,7 +30,7 @@ public class PigLatinTranslator {
 	}
 
 	public static boolean startsWithVowel(String str) {
-		Pattern vowel = Pattern.compile("[AaEeIiOoUuYy]");
+		Pattern vowel = Pattern.compile("[AaEeIiOoUu]");
 		Matcher hasVowel = vowel.matcher(String.valueOf(str.charAt(0)));
 		return hasVowel.find();
 	}
@@ -39,6 +48,9 @@ public class PigLatinTranslator {
 	}
 
 	public static int indexOf1stVowel(String str) {
+		if (str.startsWith("y")) {
+			return 1;
+		}
 		Pattern vowel = Pattern.compile("[AaEeIiOoUuYy]");
 		Matcher hasVowel = vowel.matcher(str);
 		try {

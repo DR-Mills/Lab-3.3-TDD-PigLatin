@@ -33,6 +33,6 @@ class IndexOf1stVowelTest {
 	void noVowel() {
 		String test = "bcdfghjklmnpqrstvwxz";
 		int actual = PigLatinTranslator.indexOf1stVowel(test);
-		assertEquals(-1, actual);
+		assertEquals(test.length(), actual);
 	}
 }
