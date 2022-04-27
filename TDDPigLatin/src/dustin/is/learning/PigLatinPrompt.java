@@ -16,7 +16,7 @@ public class PigLatinPrompt {
 	}
 
 	private static String promptForWord(Scanner scnr) {
-		System.out.print("Welcome to the PigLatin Translator.\n" + "Please enter a word to translate: ");
+		System.out.print("Welcome to the PigLatin Translator.\n" + "Please enter a word/phrase to translate: ");
 		return scnr.nextLine();
 	}
 	
