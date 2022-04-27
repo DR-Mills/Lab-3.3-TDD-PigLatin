@@ -1,0 +1,63 @@
+package dustin.is.learning;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class PigLatinTranslator {
+
+	public static String translate(String word) {
+		word = convertToLowerCase(word);
+		if (containsNumber(word) || containsSymbol(word)) {
+			return word;
+		} else if (startsWithVowel(word)) {
+			return addWayToEnd(word);
+		} else {
+			return convertWordToOrdway(word);
+		}
+	}
+
+	public static String convertToLowerCase(String str) {
+		return str.toLowerCase();
+	}
+
+	public static boolean startsWithVowel(String str) {
+		Pattern vowel = Pattern.compile("[AaEeIiOoUuYy]");
+		Matcher hasVowel = vowel.matcher(String.valueOf(str.charAt(0)));
+		return hasVowel.find();
+	}
+
+	public static boolean containsNumber(String str) {
+		Pattern number = Pattern.compile("[0-9]");
+		Matcher hasNumber = number.matcher(str);
+		return hasNumber.find();
+	}
+
+	public static boolean containsSymbol(String str) {
+		Pattern special = Pattern.compile("[!@#$%&*()_+=|<>?{}\\[\\]~-]");
+		Matcher hasSpecial = special.matcher(str);
+		return hasSpecial.find();
+	}
+
+	public static int indexOf1stVowel(String str) {
+		Pattern vowel = Pattern.compile("[AaEeIiOoUuYy]");
+		Matcher hasVowel = vowel.matcher(str);
+		try {
+			hasVowel.find();
+			return hasVowel.start();
+		} catch (IllegalStateException e) {
+			return str.length();
+		}
+	}
+
+	public static String addWayToEnd(String str) {
+		return str + "way";
+	}
+
+	public static String convertWordToOrdway(String str) {
+		int firstVowelIndex = indexOf1stVowel(str);
+		String subStrFront = str.substring(0, firstVowelIndex);
+		String subStrEnd = str.substring(firstVowelIndex, str.length());
+		return subStrEnd + subStrFront + "ay";
+	}
+
+}
